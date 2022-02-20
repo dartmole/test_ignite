@@ -14,18 +14,24 @@ const nextYear = `${currentYear + 1}-${currentMonth}-${currentDay}`;
 
 //Popular games url
 const popular_games = `games?key=${API_KEY}&dates=${lastYear},${currentDate()}&ordering=-rating&page_size=10`;
-export const popularGamesUrl = () => {
-  return `${base_url}${popular_games}`;
-};
+export const popularGamesUrl = () => `${base_url}${popular_games}`;
 
 //Upcoming games url
 const upcoming_games = `games?key=${API_KEY}&dates=${currentDate()},${nextYear}&ordering=-added&page_size=10`;
-export const upcomingGamesUrl = () => {
-  return `${base_url}${upcoming_games}`;
+export const upcomingGamesUrl = () => `${base_url}${upcoming_games}`;
+
+//New games url
+const new_games = `games?key=${API_KEY}&dates=${lastYear},${currentDate()}&ordering=-released&page_size=10`;
+export const newGamesUrl = () => `${base_url}${new_games}`;
+
+//Game details url
+export const gameDetailsUrl = (game_id) => {
+  return `${base_url}games/${game_id}?key=${API_KEY}`;
 };
 
-//new games url
-const new_games = `games?key=${API_KEY}&dates=${lastYear},${currentDate()}&ordering=-released&page_size=10`;
-export const newGamesUrl = () => {
-  return `${base_url}${new_games}`;
+//Game screenshots url
+export const gameScreenshotsUrl = (game_id) => {
+  return `${base_url}games/${game_id}/screenshots?key=${API_KEY}`;
 };
+
+// https://api.rawg.io/api/games/674748/screenshots?key=4e99741e719c434595e23c9546cd50ca
