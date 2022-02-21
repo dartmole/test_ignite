@@ -31,6 +31,21 @@ const GameDetail = ({ pathId }) => {
     }
   };
 
+  //Stars
+  const getStars = () => {
+    const stars = [];
+    const rating = Math.round(game.rating);
+    for (let i = 0; i < 5; i++) {
+      if (i < rating) {
+        stars.push(<img src={starFull} alt="starFull" key={i} />);
+      } else {
+        stars.push(<img src={starEmpty} alt="starEmpty" key={i} />);
+      }
+    }
+    console.log(rating);
+    return stars;
+  };
+
   //Get platfrom images
   const getPlatform = (platform) => {
     switch (platform) {
@@ -67,6 +82,7 @@ const GameDetail = ({ pathId }) => {
               <div className="rating">
                 <motion.h3 layoutId={`h3 ${pathId}`}>{game.name}</motion.h3>
                 <p>Rating: {game.rating}</p>
+                {getStars()}
               </div>
               <Info>
                 <h3>Platforms</h3>
@@ -144,6 +160,11 @@ const Stats = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  img {
+    width: 1rem;
+    height: 1rem;
+    display: inline;
+  }
 `;
 
 const Info = styled(motion.div)`
