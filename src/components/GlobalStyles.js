@@ -40,7 +40,11 @@ const GlobalStyles = createGlobalStyle`
     }
     img {
     display: block;
-  }
+    }
+    input {
+        font-family: 'Rajdhani', sans-serif;
+    }
+
 `;
 
 export default GlobalStyles;
