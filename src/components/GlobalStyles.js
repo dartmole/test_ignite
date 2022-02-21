@@ -13,6 +13,9 @@ const GlobalStyles = createGlobalStyle`
         &::-webkit-scrollbar-thumb {
             background-color: darkgray;
         }
+        &::-webkit-scrollbar-track {
+            background-color: white;
+  }
     }
     body {
         /* font-family: 'Fredoka One', cursive; */
@@ -25,7 +28,7 @@ const GlobalStyles = createGlobalStyle`
     }
     h3  {
         font-size: 1.2rem;
-        padding: 1.5rem 1.5rem 0 1.5rem;
+        padding: 1rem;
     }
     p {
         font-size: 1.2rem;
@@ -34,7 +37,11 @@ const GlobalStyles = createGlobalStyle`
     }
     a {
         text-decoration: none;
+        color: #333;
     }
+    img {
+    display: block;
+  }
 `;
 
 export default GlobalStyles;
