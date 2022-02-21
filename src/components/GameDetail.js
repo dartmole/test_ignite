@@ -8,9 +8,20 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 //Image resize
 import { getSmallImage } from "../util";
+//Images
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
+//Star Images
+import starEmpty from "../img/star-empty.png";
+import starFull from "../img/star-full.png";
 
 const GameDetail = ({ pathId }) => {
   const navigate = useNavigate();
+
   //Exit detail
   const exitDetailHandler = (e) => {
     const element = e.target;
@@ -19,8 +30,34 @@ const GameDetail = ({ pathId }) => {
       navigate("/");
     }
   };
+
+  //Get platfrom images
+  const getPlatform = (platform) => {
+    switch (platform) {
+      case "PlayStation 4":
+        return playstation;
+      case "PlayStation 5":
+        return playstation;
+      case "Xbox Series S/X":
+        return xbox;
+      case "Xbox S":
+        return xbox;
+      case "Xbox One":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      default:
+        return gamepad;
+    }
+  };
+
   //Data
   const { game, screenshots, isLoading } = useSelector((state) => state.details);
+
   return (
     <>
       {!isLoading && (
@@ -35,7 +72,11 @@ const GameDetail = ({ pathId }) => {
                 <h3>Platforms</h3>
                 <Platforms>
                   {game.platforms.map((platform) => (
-                    <h3 key={platform.platform.id}>{platform.platform.name}</h3>
+                    <img
+                      key={platform.platform.id}
+                      src={getPlatform(platform.platform.name)}
+                      alt={platform.platform.name}
+                    />
                   ))}
                 </Platforms>
               </Info>
@@ -112,9 +153,14 @@ const Info = styled(motion.div)`
 const Platforms = styled(motion.div)`
   display: flex;
   justify-content: space-evenly;
-
+  padding-top: 1rem;
   img {
-    margin-left: 3rem;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 `;
 
