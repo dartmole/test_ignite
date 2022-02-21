@@ -9,7 +9,8 @@ const detailReducer = (state = initState, action) => {
     case "GET_DETAIL":
       return {
         ...state,
-        ...action.payload,
+        game: action.payload.game,
+        screen: action.payload.screenshots,
         isLoading: false,
       };
     case "LOADING_DETAIL":

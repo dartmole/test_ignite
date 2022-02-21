@@ -7,9 +7,10 @@ import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
 //Style
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 //Router
 import { useLocation } from "react-router-dom";
+import { loadDetail } from "../actions/detailAction";
 
 const Home = () => {
   //Get location
@@ -18,32 +19,38 @@ const Home = () => {
   //Fetch games
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(loadGames());
+    dispatch(loadGames()).then(() => {
+      if (pathId) {
+        dispatch(loadDetail(pathId));
+      }
+    });
   }, [dispatch]);
   //Get the data back
   const { popular, newGames, upcoming } = useSelector((state) => state.games);
 
   return (
     <GameList>
-      {pathId && <GameDetail />}
-      <h2>Upcoming games</h2>
-      <Games>
-        {upcoming.map((game) => (
-          <Game key={game.id} game={game} />
-        ))}
-      </Games>
-      <h2>Popular Games</h2>
-      <Games>
-        {popular.map((game) => (
-          <Game key={game.id} game={game} />
-        ))}
-      </Games>
-      <h2>New Games</h2>
-      <Games>
-        {newGames.map((game) => (
-          <Game key={game.id} game={game} />
-        ))}
-      </Games>
+      <LayoutGroup>
+        <AnimatePresence>{pathId && <GameDetail pathId={pathId} />}</AnimatePresence>
+        <h2>Upcoming games</h2>
+        <Games>
+          {upcoming.map((game) => (
+            <Game key={game.id} game={game} />
+          ))}
+        </Games>
+        <h2>Popular Games</h2>
+        <Games>
+          {popular.map((game) => (
+            <Game key={game.id} game={game} />
+          ))}
+        </Games>
+        <h2>New Games</h2>
+        <Games>
+          {newGames.map((game) => (
+            <Game key={game.id} game={game} />
+          ))}
+        </Games>
+      </LayoutGroup>
     </GameList>
   );
 };

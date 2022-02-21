@@ -7,8 +7,11 @@ import { useDispatch } from "react-redux";
 import { loadDetail } from "../actions/detailAction";
 //Router
 import { Link } from "react-router-dom";
+//Image resize
+import { getSmallImage } from "../util";
 
 const Game = ({ game }) => {
+  const stringPathId = game.id.toString();
   //Load detail
   const dispatch = useDispatch();
   const loadDetailHandler = () => {
@@ -16,11 +19,15 @@ const Game = ({ game }) => {
     dispatch(loadDetail(game.id));
   };
   return (
-    <StyledGame onClick={loadDetailHandler}>
+    <StyledGame layoutId={stringPathId} onClick={loadDetailHandler}>
       <Link to={`/games/${game.id}`}>
-        <h3>{game.name}</h3>
+        <motion.h3 layoutId={`h3 ${stringPathId}`}>{game.name}</motion.h3>
         <p>{game.released}</p>
-        <img src={game.background_image} alt={game.name} />
+        <motion.img
+          layoutId={`image ${stringPathId}`}
+          src={getSmallImage(game.background_image, 640)}
+          alt={game.name}
+        />
       </Link>
     </StyledGame>
   );
@@ -34,7 +41,7 @@ const StyledGame = styled(motion.div)`
   overflow: hidden;
   h3 {
     min-height: 98px;
-    padding-bottom: 0;
+    padding: 1rem 1rem 0 1rem;
   }
   img {
     width: 100%;
