@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 //Redux
 import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
+import { loadDetail } from "../actions/detailAction";
 //Components
 import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
@@ -10,7 +11,6 @@ import styled from "styled-components";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 //Router
 import { useLocation } from "react-router-dom";
-import { loadDetail } from "../actions/detailAction";
 
 const Home = () => {
   //Get location

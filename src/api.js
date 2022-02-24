@@ -25,13 +25,14 @@ const new_games = `games?key=${API_KEY}&dates=${lastYear},${currentDate()}&order
 export const newGamesUrl = () => `${base_url}${new_games}`;
 
 //Game details url
-export const gameDetailsUrl = (game_id) => {
-  return `${base_url}games/${game_id}?key=${API_KEY}`;
-};
+export const gameDetailsUrl = (game_id) => `${base_url}games/${game_id}?key=${API_KEY}`;
 
 //Game screenshots url
-export const gameScreenshotsUrl = (game_id) => {
-  return `${base_url}games/${game_id}/screenshots?key=${API_KEY}`;
-};
+export const gameScreenshotsUrl = (game_id) =>
+  `${base_url}games/${game_id}/screenshots?key=${API_KEY}`;
+
+//Searched game
+export const searchGameUrl = (game_name) =>
+  `${base_url}games?key=${API_KEY}&search=${game_name}&page_size=6`;
 
 // https://api.rawg.io/api/games/674748/screenshots?key=4e99741e719c434595e23c9546cd50ca

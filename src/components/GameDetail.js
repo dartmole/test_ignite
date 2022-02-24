@@ -42,7 +42,6 @@ const GameDetail = ({ pathId }) => {
         stars.push(<img src={starEmpty} alt="starEmpty" key={i} />);
       }
     }
-    console.log(rating);
     return stars;
   };
 

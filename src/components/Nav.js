@@ -1,20 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 //Style
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import logo from "../img/logo.svg";
+//Redux
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSearch } from "../actions/gamesAction";
+//Components
+import Game from "./Game";
 
 const Nav = () => {
+  const dispatch = useDispatch();
+  //State
+  const [input, setInput] = useState("");
+  //Grabbing input
+  const inputHandler = (e) => {
+    setInput(e.target.value);
+  };
+  const submitSearch = (e) => {
+    e.preventDefault();
+    dispatch(fetchSearch(input));
+    setInput("");
+  };
+  const searchedGames = useSelector((state) => state.games.searched);
+
+  const clearSearch = () => {
+    dispatch({
+      type: "CLEAR_SEARCHED",
+    });
+  };
+
   return (
     <StyledNav>
-      <Logo>
+      <Logo onClick={clearSearch}>
         <img src={logo} alt="" />
         <h1>Ignite</h1>
       </Logo>
-      <div className="search">
-        <input type="text" />
-        <button>Search</button>
-      </div>
+      <form className="search" onSubmit={submitSearch}>
+        <input type="text" value={input} onChange={inputHandler} />
+        <button type="submit">Search</button>
+      </form>
+      {searchedGames.length > 0 && (
+        <Games>
+          {searchedGames.map((game) => (
+            <Game className="searchedGame" key={game.id} game={game} />
+          ))}
+        </Games>
+      )}
     </StyledNav>
   );
 };
@@ -37,6 +69,10 @@ const StyledNav = styled(motion.nav)`
     background-color: #ff7676;
     color: white;
   }
+  .searchedGame {
+    display: flex;
+    flex-direction: row;
+  }
 `;
 
 const Logo = styled(motion.div)`
@@ -45,10 +81,18 @@ const Logo = styled(motion.div)`
   justify-content: center;
   padding: 1rem;
   align-items: center;
+  cursor: pointer;
   img {
     width: 2rem;
     height: 2rem;
   }
+`;
+
+const Games = styled(motion.div)`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding-top: 2rem;
 `;
 
 export default Nav;
