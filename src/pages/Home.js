@@ -9,6 +9,7 @@ import GameDetail from "../components/GameDetail";
 //Style
 import styled from "styled-components";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { fadeIn } from "../animations";
 //Router
 import { useLocation } from "react-router-dom";
 
@@ -29,7 +30,7 @@ const Home = () => {
   const { popular, newGames, upcoming } = useSelector((state) => state.games);
 
   return (
-    <GameList>
+    <GameList variants={fadeIn} initial="hidden" animate="show">
       <LayoutGroup>
         <AnimatePresence>{pathId && <GameDetail pathId={pathId} />}</AnimatePresence>
         <h2>Upcoming games</h2>
